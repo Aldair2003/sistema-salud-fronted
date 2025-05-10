@@ -1,39 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios from 'axios';
 
-const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+// Configurar la base URL para todas las peticiones
+const api = axios.create({
+  // Asegurarnos de que la base URL no incluya /api
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-export const get = async (
-  url: string,
-  config?: AxiosRequestConfig
-): Promise<AxiosResponse> => {
-  return instance.get(url, config);
+export const get = async (url: string, config = {}) => {
+  return api.get(url, config);
 };
 
-export const post = async (
-  url: string,
-  data?: any,
-  config?: AxiosRequestConfig
-): Promise<AxiosResponse> => {
-  return instance.post(url, data, config);
+export const post = async (url: string, data: any, config = {}) => {
+  return api.post(url, data, config);
 };
 
-export const patch = async (
-  url: string,
-  data?: any,
-  config?: AxiosRequestConfig
-): Promise<AxiosResponse> => {
-  return instance.patch(url, data, config);
+export const patch = async (url: string, data: any, config = {}) => {
+  return api.patch(url, data, config);
 };
 
-export const del = async (
-  url: string,
-  config?: AxiosRequestConfig
-): Promise<AxiosResponse> => {
-  return instance.delete(url, config);
+export const del = async (url: string, config = {}) => {
+  return api.delete(url, config);
 };
